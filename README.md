@@ -7,7 +7,7 @@ Zero-JavaScript yaklaşımı, Islands mimarisi ve glassmorphism temelli kişisel
 - ⚡ **Astro 5 + Tailwind 4**: Minimum bundle, kusursuz Core Web Vitals.
 - 🎞️ **Tam ekran video arka planı**: VP9/H.265 codec önerisi, mobilde statik görsel fallback.
 - 🧊 **Glassmorphism + Neumorphism**: Hover micro-interactions, animasyonlu başlıklar.
-- 🌗 **Tema geçişi**: Minimal JS ile veri adası yaklaşımı, `localStorage` desteği.
+- 🎧 **Lo-Fi ses + Discord Presence**: Yerleşik audio player ve Lanyard tabanlı gerçek zamanlı durum kartı.
 - 💤 **Lazy-loading & preload**: Kritik assetler için `link rel="preload"`, diğerleri `loading="lazy"`.
 - 📱 **Mobile-first responsive**: Tablet & masaüstü kırılımları, dokunmatik uyumlu butonlar.
 - 📈 **SEO & PWA hazır**: Manifest, Open Graph, Twitter meta, GitHub Pages uyumlu konfig.
@@ -32,8 +32,8 @@ Zero-JavaScript yaklaşımı, Islands mimarisi ve glassmorphism temelli kişisel
 │   ├── components
 │   │   ├── AnalyticsPlaceholder.astro
 │   │   ├── ProfileSummary.astro
+│   │   ├── DiscordPresence.astro
 │   │   ├── SocialLinks.astro
-│   │   ├── ThemeToggle.astro
 │   │   └── VideoBackground.astro
 │   ├── layouts
 │   │   └── Layout.astro

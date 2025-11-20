@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import VideoBackground from '../components/VideoBackground.astro';
 import ProfileSummary from '../components/ProfileSummary.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+import DiscordPresence from '../components/DiscordPresence.astro';
 
 const meta = {
 	title: 'Ada Yılmaz · Creative Technologist',
@@ -14,13 +15,6 @@ const socialLinks = [
 	{ label: 'Twitter', handle: '@adayilmaz', href: 'https://twitter.com/adayilmaz', icon: 'twitter' },
 	{ label: 'Discord', handle: 'ada.codes', href: 'https://discord.gg/adayilmaz', icon: 'discord' },
 	{ label: 'Instagram', handle: '@aday.designs', href: 'https://instagram.com/aday.designs', icon: 'instagram' }
-];
-
-const highlights = [
-	{ label: 'Lokasyon', value: 'İstanbul · Remote friendly' },
-	{ label: 'Rol', value: 'Creative Technologist' },
-	{ label: 'Durum', value: 'Yeni projelere açık' },
-	{ label: 'Zamanlama', value: '2 hafta içinde müsait' }
 ];
 
 const focusAreas = [
@@ -52,8 +46,10 @@ const focusAreas = [
 				name="Ada Yılmaz"
 				role="Creative Technologist · Experience Designer"
 				bio="Geleceğin web deneyimlerini performans, estetik ve hikâye anlatımı üzerinden kurguluyorum. Card.co ve guns.lol benzeri yoğun kişiselleştirilmiş profillerden kurumsal landing sayfalarına kadar tam kontrol sunan sistemler oluşturuyorum."
-				highlights={highlights}
 			/>
+			<div class="mt-6">
+				<DiscordPresence />
+			</div>
 			<div class="mt-6">
 				<SocialLinks links={socialLinks} />
 			</div>

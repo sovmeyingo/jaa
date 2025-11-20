@@ -62,10 +62,6 @@
 		box-shadow: 0 15px 45px rgba(4, 5, 20, 0.45);
 	}
 
-	.theme-toggle {
-		@apply h-12 w-12 items-center justify-center rounded-full bg-white/5 text-lg transition hover:bg-white/10;
-	}
-
 	.text-gradient {
 		background: linear-gradient(120deg, #7cf0ff, #8b5cf6, #ec4899);
 		-webkit-background-clip: text;
@@ -84,6 +80,50 @@
 
 	.site-footer {
 		@apply mx-auto flex w-full max-w-6xl flex-col gap-1 border-t border-white/5 px-6 py-10 text-center;
+	}
+
+	.discord-presence {
+		@apply space-y-4;
+	}
+
+	.presence-grid {
+		@apply grid gap-4 md:grid-cols-3;
+	}
+
+	.presence-card {
+		@apply rounded-2xl border border-white/5 bg-white/5 p-4;
+	}
+
+	.card-label {
+		@apply text-xs uppercase tracking-[0.3em] text-slate-400;
+	}
+
+	.card-title {
+		@apply text-lg font-semibold text-white;
+	}
+
+	.card-meta {
+		@apply text-sm text-slate-300;
+	}
+
+	.status-dot {
+		@apply inline-block h-2.5 w-2.5 rounded-full;
+	}
+
+	.spotify-cover {
+		@apply h-14 w-14 rounded-2xl border border-white/10 bg-white/10 bg-cover bg-center;
+	}
+
+	.platform-list {
+		@apply flex flex-wrap gap-2;
+	}
+
+	.platform-pill {
+		@apply rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 transition;
+	}
+
+	.platform-active {
+		@apply border-white/40 bg-white/15 text-white;
 	}
 }
 

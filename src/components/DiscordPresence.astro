@@ -1,0 +1,149 @@
+---
+/**
+ * Discord durum kartı Lanyard API'sinden gerçek zamanlı verileri çeker.
+ */
+const userId = '846641377173569537';
+const endpoint = `https://api.lanyard.rest/v1/users/${userId}`;
+---
+
+<section id="discord-presence" class="discord-presence glass-panel">
+	<header class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+		<div>
+			<p class="text-xs uppercase tracking-[0.4em] text-slate-400">Discord Durumu</p>
+			<h3 class="text-xl font-semibold text-white">Jva</h3>
+		</div>
+		<div class="flex items-center gap-2 text-sm text-slate-300">
+			<span id="presence-dot" class="status-dot bg-slate-500"></span>
+			<span id="presence-state">Bağlanıyor...</span>
+		</div>
+	</header>
+
+	<div class="presence-grid mt-4">
+		<article class="presence-card">
+			<p class="card-label">Aktivite</p>
+			<p class="card-title" id="presence-activity">Aktivite bulunamadı</p>
+			<p class="card-meta" id="presence-activity-meta">Çevrimiçi olduğunda otomatik güncellenecek</p>
+		</article>
+
+		<article class="presence-card">
+			<p class="card-label">Spotify</p>
+			<div class="flex gap-3">
+				<div class="spotify-cover" id="spotify-cover"></div>
+				<div>
+					<p class="card-title" id="spotify-song">Şu anda çalınmıyor</p>
+					<p class="card-meta" id="spotify-artist">Spotify açık olduğunda burada görünecek</p>
+				</div>
+			</div>
+		</article>
+
+		<article class="presence-card">
+			<p class="card-label">Aktif Platform</p>
+			<ul class="platform-list" id="platform-list">
+				<li data-platform="desktop" class="platform-pill">Desktop</li>
+				<li data-platform="web" class="platform-pill">Web</li>
+				<li data-platform="mobile" class="platform-pill">Mobile</li>
+			</ul>
+		</article>
+	</div>
+</section>
+
+<script type="module">
+	const endpoint = {JSON.stringify(endpoint)};
+	const statusDot = document.getElementById('presence-dot');
+	const statusState = document.getElementById('presence-state');
+	const activityTitle = document.getElementById('presence-activity');
+	const activityMeta = document.getElementById('presence-activity-meta');
+	const spotifySong = document.getElementById('spotify-song');
+	const spotifyArtist = document.getElementById('spotify-artist');
+	const spotifyCover = document.getElementById('spotify-cover');
+	const platformList = document.getElementById('platform-list');
+
+	const statusCopy = {
+		online: 'Çevrimiçi',
+		idle: 'Boşta',
+		dnd: 'Rahatsız etmeyin',
+		offline: 'Çevrimdışı'
+	};
+
+	const statusColor = {
+		online: '#22c55e',
+		idle: '#facc15',
+		dnd: '#ef4444',
+		offline: '#475569'
+	};
+
+	const platformLookup = {
+		desktop: 'active_on_discord_desktop',
+		web: 'active_on_discord_web',
+		mobile: 'active_on_discord_mobile'
+	};
+
+	const setPlatforms = (data) => {
+		platformList.querySelectorAll('.platform-pill').forEach((pill) => {
+			const key = platformLookup[pill.dataset.platform];
+			if (data?.[key]) {
+				pill.classList.add('platform-active');
+			} else {
+				pill.classList.remove('platform-active');
+			}
+		});
+	};
+
+	const setSpotify = (spotify) => {
+		if (spotify?.song) {
+			spotifySong.textContent = spotify.song;
+			spotifyArtist.textContent = `${spotify.artist} · ${spotify.album}`;
+			if (spotify.album_art_url) {
+				spotifyCover.style.backgroundImage = `url(${spotify.album_art_url})`;
+				spotifyCover.classList.add('has-cover');
+			}
+		} else {
+			spotifySong.textContent = 'Şu anda çalınmıyor';
+			spotifyArtist.textContent = 'Spotify açık olduğunda burada görünecek';
+			spotifyCover.style.backgroundImage = 'none';
+			spotifyCover.classList.remove('has-cover');
+		}
+	};
+
+	const setActivity = (activities = []) => {
+		const primary = activities.find((act) => act.type === 0) ?? activities[0];
+		if (primary) {
+			activityTitle.textContent = primary.name;
+			const detail = [primary.details, primary.state].filter(Boolean).join(' · ');
+			activityMeta.textContent = detail || 'Aktivite detayları';
+		} else {
+			activityTitle.textContent = 'Aktivite bulunamadı';
+			activityMeta.textContent = 'Çevrimiçi olduğunda otomatik güncellenecek';
+		}
+	};
+
+	const setStatus = (status) => {
+		const key = status ?? 'offline';
+		statusState.textContent = statusCopy[key] ?? statusCopy.offline;
+		statusDot.style.backgroundColor = statusColor[key] ?? statusColor.offline;
+	};
+
+	const hydrate = (payload) => {
+		const { discord_status, activities, spotify, ...rest } = payload ?? {};
+		setStatus(discord_status);
+		setActivity(activities);
+		setSpotify(spotify);
+		setPlatforms(rest);
+	};
+
+	const fetchPresence = async () => {
+		try {
+			const res = await fetch(endpoint, { cache: 'no-store' });
+			if (!res.ok) throw new Error('Lanyard hatası');
+			const json = await res.json();
+			if (json.success) hydrate(json.data);
+		} catch (error) {
+			statusState.textContent = 'Durum getirilemedi';
+			console.error('Lanyard fetch error', error);
+		}
+	};
+
+	fetchPresence();
+	setInterval(fetchPresence, 30000);
+</script>
+
