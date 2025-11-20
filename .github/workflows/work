@@ -1,3 +1,11 @@
+   const site = 'https://github.com/sovmeyingo';
+   const base = '/jaa/';
+   ```
+   (Repo adın farklıysa base’i ona göre değiştir.)
+
+2. **GitHub Pages dağıtımı**  
+   - Pages ayarında “Source → GitHub Actions” seçiyorsan, Astro’nun hazır workflow’unu ekle:  
+     ```yaml
      name: Deploy Astro site to Pages
      on:
        push:
@@ -8,3 +16,8 @@
          uses: withastro/action/.github/workflows/deploy.yml@v1
          with:
            node-version: 20
+   ```
+     Bu script `npm install` + `npm run build` çalıştırıp `dist/` klasörünü Pages’e gönderir.
+   - Eğer “Deploy from branch” kullanıyorsan, yerelde `npm run build` çalıştırıp oluşan `dist` içeriğini `gh-pages` dalına (veya Pages’in işaret ettiği dalın köküne) yüklemen gerekir. Klasörün içinde `index.html` mutlaka olmalı.
+
+`.nojekyll` dosyasını eklemen doğruydu; artık tek eksik, Pages’e gerçekten build çıktısını göndermek ve doğru `site/base` ayarıyla linklerin eşleşmesini sağlamak. Bunları yaptıktan sonra URL yenilendiğinde site görünür hale gelecektir.
