@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@font-face {
+	font-family: 'InterVariable';
+	src: url('/assets/fonts/Inter-Variable.woff2') format('woff2');
+	font-weight: 100 900;
+	font-display: swap;
+}
+
+@layer base {
+	:root {
+		--font-base: 'InterVariable', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		--color-night: #040514;
+		--color-night-soft: #0b0f2a;
+		--color-accent: #6d6dff;
+		--color-accent-strong: #7cf0ff;
+		color-scheme: dark;
+	}
+
+	:root[data-theme='light'] {
+		--color-night: #f3f5ff;
+		--color-night-soft: #ffffff;
+		color-scheme: light;
+	}
+
+	html {
+		font-family: var(--font-base);
+		scroll-behavior: smooth;
+	}
+
+	body {
+		min-height: 100vh;
+		background-color: var(--color-night);
+		background-image: radial-gradient(circle at 20% 20%, rgba(124, 240, 255, 0.08), transparent 40%),
+			radial-gradient(circle at 80% 0%, rgba(109, 109, 255, 0.12), transparent 45%),
+			linear-gradient(180deg, rgba(4, 5, 20, 0.95), rgba(4, 5, 20, 0.98));
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			animation-duration: 0.001ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.001ms !important;
+			scroll-behavior: auto !important;
+		}
+	}
+}
+
+@layer components {
+	.glass-button {
+		@apply inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white/90 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/10 hover:text-white;
+		box-shadow: 0 10px 40px rgba(109, 109, 255, 0.2);
+	}
+
+	.icon-wrap {
+		@apply flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/10;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+	}
+
+	.glass-panel {
+		@apply rounded-3xl border border-white/5 bg-white/5 p-5 backdrop-blur-2xl;
+		box-shadow: 0 15px 45px rgba(4, 5, 20, 0.45);
+	}
+
+	.theme-toggle {
+		@apply h-12 w-12 items-center justify-center rounded-full bg-white/5 text-lg transition hover:bg-white/10;
+	}
+
+	.text-gradient {
+		background: linear-gradient(120deg, #7cf0ff, #8b5cf6, #ec4899);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	.site-header {
+		@apply fixed left-0 right-0 top-0 z-50 mx-auto flex max-w-6xl items-center justify-between gap-4 border border-white/5 px-6 py-4 backdrop-blur-2xl rounded-[2rem];
+		background-color: color-mix(in srgb, var(--color-night) 70%, transparent);
+		box-shadow: 0 25px 60px rgba(4, 5, 20, 0.45);
+	}
+
+	main#main-content {
+		@apply mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-16 px-6 pt-32 pb-20;
+	}
+
+	.site-footer {
+		@apply mx-auto flex w-full max-w-6xl flex-col gap-1 border-t border-white/5 px-6 py-10 text-center;
+	}
+}
+
+@layer utilities {
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+
+	.animate-fade-up {
+		animation: fadeUp 0.9s ease forwards;
+	}
+
+	.animate-slow-pulse {
+		animation: slowPulse 6s ease-in-out infinite;
+	}
+
+	.bg-night {
+		background-color: var(--color-night);
+	}
+}
+
+@keyframes fadeUp {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 20px, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes slowPulse {
+	0%,
+	100% {
+		opacity: 0.4;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.8;
+		transform: scale(1.05);
+	}
+}

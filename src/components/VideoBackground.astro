@@ -1,0 +1,42 @@
+---
+/**
+ * VideoBackground bileşeni, masaüstünde optimize edilmiş VP9/H.265 videoyu
+ * oynatırken mobil cihazlarda statik görsel yedeği gösterir.
+ */
+interface Props {
+	videoSrc?: string;
+	videoSrcWebm?: string;
+	posterSrc?: string;
+}
+
+const {
+	videoSrc = '/assets/videos/background.mp4',
+	videoSrcWebm,
+	posterSrc = '/assets/images/profile.jpg'
+} = Astro.props as Props;
+---
+
+<figure class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+	<video
+		class="hidden md:block h-full w-full object-cover"
+		autoplay
+		muted
+		loop
+		playsinline
+		preload="auto"
+		poster={posterSrc}
+	>
+		<source src={videoSrc} type="video/mp4" />
+		{videoSrcWebm && <source src={videoSrcWebm} type="video/webm" />}
+	</video>
+
+	<div
+		class="block md:hidden h-full w-full bg-cover bg-center"
+		style={`background-image: url('${posterSrc}');`}
+	></div>
+
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_#3b82f64d,_transparent_45%)] blur-[2px]"></div>
+	<div class="absolute inset-0 bg-gradient-to-b from-night/40 via-night/80 to-night backdrop-blur-[6px]"></div>
+</figure>
+</figure>
+

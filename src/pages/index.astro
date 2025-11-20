@@ -1,0 +1,136 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VideoBackground from '../components/VideoBackground.astro';
+import ProfileSummary from '../components/ProfileSummary.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+
+const meta = {
+	title: 'Ada Yılmaz · Creative Technologist',
+	description: 'Modern web deneyimleri, performans odaklı sistemler ve minimal tasarım ile kişisel profil alanı.'
+};
+
+const socialLinks = [
+	{ label: 'GitHub', handle: '@adayilmaz', href: 'https://github.com/adayilmaz', icon: 'github' },
+	{ label: 'Twitter', handle: '@adayilmaz', href: 'https://twitter.com/adayilmaz', icon: 'twitter' },
+	{ label: 'Discord', handle: 'ada.codes', href: 'https://discord.gg/adayilmaz', icon: 'discord' },
+	{ label: 'Instagram', handle: '@aday.designs', href: 'https://instagram.com/aday.designs', icon: 'instagram' }
+];
+
+const highlights = [
+	{ label: 'Lokasyon', value: 'İstanbul · Remote friendly' },
+	{ label: 'Rol', value: 'Creative Technologist' },
+	{ label: 'Durum', value: 'Yeni projelere açık' },
+	{ label: 'Zamanlama', value: '2 hafta içinde müsait' }
+];
+
+const focusAreas = [
+	{
+		title: 'Deneyim Tasarımı',
+		copy: 'Glasmorphism, mikro etkileşimler ve duygusal arayüzler ile fark yaratan deneyimler.',
+		metrics: '10+ ürün'
+	},
+	{
+		title: 'Performans',
+		copy: 'Astro + Islands mimarisi ile 95+ Lighthouse skoruna ulaşan zero-JS çözümler.',
+		metrics: '<1s LCP'
+	},
+	{
+		title: 'Sistem Tasarımı',
+		copy: 'Design token, tematik gridler ve reusable component kütüphaneleri.',
+		metrics: '6 tasarım sistemi'
+	}
+];
+---
+
+<Layout {...meta}>
+
+	<VideoBackground videoSrc="/assets/videos/background.mp4" posterSrc="/assets/images/banners/hero-banner.jpg" />
+
+	<section id="about" class="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr]">
+		<div class="glass-panel animate-fade-up">
+			<ProfileSummary
+				name="Ada Yılmaz"
+				role="Creative Technologist · Experience Designer"
+				bio="Geleceğin web deneyimlerini performans, estetik ve hikâye anlatımı üzerinden kurguluyorum. Card.co ve guns.lol benzeri yoğun kişiselleştirilmiş profillerden kurumsal landing sayfalarına kadar tam kontrol sunan sistemler oluşturuyorum."
+				highlights={highlights}
+			/>
+			<div class="mt-6">
+				<SocialLinks links={socialLinks} />
+			</div>
+		</div>
+
+		<div class="relative mx-auto flex w-full max-w-sm flex-col items-center gap-6 text-center">
+			<div class="relative">
+				<div class="absolute inset-0 -z-10 rounded-full bg-gradient-to-tr from-indigo-500/40 via-sky-400/30 to-purple-500/40 blur-3xl animate-slow-pulse"></div>
+				<img
+					src="/assets/images/profile.jpg"
+					alt="Ada Yılmaz profil fotoğrafı"
+					class="h-56 w-56 rounded-full border-4 border-white/20 object-cover shadow-2xl transition hover:scale-105"
+					loading="eager"
+					decoding="async"
+				/>
+			</div>
+			<p class="text-sm uppercase tracking-[0.4em] text-slate-400">Creative Pulse</p>
+			<p class="max-w-xs text-balance text-sm text-slate-300">
+				“Minimalizmden ödün vermeden sıcak, dokunsal ve parallax destekli deneyimler tasarlıyorum.”
+			</p>
+			<div class="flex flex-wrap justify-center gap-3">
+				<a class="glass-button" href="mailto:hello@adayilmaz.com">İletişime Geç</a>
+				<a class="glass-button" href="/assets/documents/ada-yilmaz-cv.pdf" download>CV İndir</a>
+			</div>
+		</div>
+	</section>
+
+	<section id="work" class="space-y-8">
+		<header class="space-y-3 text-center md:text-left">
+			<p class="text-xs uppercase tracking-[0.4em] text-slate-400">Odak Alanları</p>
+			<h2 class="text-3xl font-semibold text-white">Performans, duygusal hikâye, akış</h2>
+			<p class="text-base text-slate-300">
+				Tüm medya dosyaları lokal olarak optimize edilir, kritik assetler preload edilir ve zero-JavaScript yaklaşımı ile yalnızca gerekli
+				interaktivite adaları yüklenir.
+			</p>
+		</header>
+
+		<div class="grid gap-6 md:grid-cols-3">
+			{focusAreas.map((item) => (
+				<article class="glass-panel space-y-4 border-white/10" role="article">
+					<div class="space-y-2">
+						<p class="text-xs uppercase tracking-[0.4em] text-slate-400">{item.metrics}</p>
+						<h3 class="text-xl font-semibold text-white">{item.title}</h3>
+						<p class="text-sm text-slate-300">{item.copy}</p>
+					</div>
+				</article>
+			))}
+		</div>
+	</section>
+
+	<section id="contact" class="glass-panel space-y-6">
+		<header class="space-y-2">
+			<p class="text-xs uppercase tracking-[0.4em] text-slate-400">İletişim</p>
+			<h2 class="text-2xl font-semibold text-white">Birlikte üretelim</h2>
+			<p class="text-sm text-slate-300">Parallax destekli kişisel profilinizi, müzik widget'ınızı veya mikro etkileşimli kartlarınızı birlikte tasarlayalım.</p>
+		</header>
+
+		<div class="grid gap-5 md:grid-cols-3">
+			<div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm">
+				<p class="text-xs uppercase tracking-[0.3em] text-slate-400">E-posta</p>
+				<a class="text-lg font-medium text-white" href="mailto:hello@adayilmaz.com">hello@adayilmaz.com</a>
+			</div>
+			<div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm">
+				<p class="text-xs uppercase tracking-[0.3em] text-slate-400">Discord</p>
+				<a class="text-lg font-medium text-white" href="https://discord.gg/adayilmaz">ada.codes</a>
+			</div>
+			<div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm">
+				<p class="text-xs uppercase tracking-[0.3em] text-slate-400">Ses manzarası</p>
+				<p class="pb-2 text-sm text-slate-300">Studio oturumlarından özel bir Lo-Fi mix.</p>
+				<audio
+					class="w-full"
+					controls
+					preload="none"
+					src="/assets/audio/focus-playlist.mp3"
+					aria-label="Focus playlist"
+				></audio>
+			</div>
+		</div>
+	</section>
+</Layout>

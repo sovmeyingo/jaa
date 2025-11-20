@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+import AnalyticsPlaceholder from '../components/AnalyticsPlaceholder.astro';
+
+type Props = {
+	title?: string;
+	description?: string;
+	canonical?: string;
+};
+
+const {
+	title = 'Modern Profil · Performans Odaklı',
+	description = 'Modern tasarım, zero-JS yaklaşımı ve kusursuz performans odaklı kişisel profil deneyimi.',
+	canonical = Astro.site ?? 'https://example.dev/profile'
+} = Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="tr" data-theme="dark" class="scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content="/assets/images/profile.jpg" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="/assets/images/profile.jpg" />
+		<meta name="theme-color" content="#070815" />
+		<link rel="canonical" href={canonical} />
+		<link rel="manifest" href="/manifest.webmanifest" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preload" href="/assets/videos/background.mp4" as="video" type="video/mp4" />
+		<link rel="preload" href="/assets/images/profile.jpg" as="image" fetchpriority="high" />
+		<link rel="preload" href="/assets/images/logo.png" as="image" />
+		<link rel="preload" href="/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+		<title>{title}</title>
+	</head>
+	<body class="bg-night text-slate-100 antialiased">
+		<div id="app" class="relative min-h-screen w-full overflow-hidden">
+			<header class="site-header">
+				<a href="/" class="font-semibold tracking-[0.3em] text-xs uppercase text-slate-200">Personal • Profile</a>
+				<nav aria-label="Site">
+					<ul class="flex gap-6 text-xs uppercase tracking-[0.2em] text-slate-400">
+						<li><a class="hover:text-white transition" href="#about">Hakkımda</a></li>
+						<li><a class="hover:text-white transition" href="#work">Çalışmalar</a></li>
+						<li><a class="hover:text-white transition" href="#contact">İletişim</a></li>
+					</ul>
+				</nav>
+			</header>
+
+			<main id="main-content">
+				<slot />
+			</main>
+
+			<footer class="site-footer">
+				<p class="text-xs uppercase tracking-[0.3em] text-slate-500">
+					Modern profil · {new Intl.DateTimeFormat('tr-TR', { year: 'numeric' }).format(new Date())}
+				</p>
+				<p class="text-sm text-slate-400">Made with Astro · Tailwind · Zero-JS yaklaşımı</p>
+			</footer>
+		</div>
+		<AnalyticsPlaceholder />
+	</body>
+</html>
